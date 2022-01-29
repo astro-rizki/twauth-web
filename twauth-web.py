@@ -69,15 +69,6 @@ def callback():
     oauth_verifier = request.args.get('oauth_verifier')
     oauth_denied = request.args.get('denied')
     
-    f = open("demofile.txt", "a")
-    if oauth_token is not None:
-        f.write(oauth_token)
-    if oauth_verifier is not None:
-        f.write(oauth_verifier)
-    if oauth_denied is not None:
-        f.write(oauth_denied)
-    f.close()
-
     # if the OAuth request was denied, delete our local token
     # and show an error message
     if oauth_denied:
