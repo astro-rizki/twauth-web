@@ -124,6 +124,9 @@ def callback():
     name = response['name']
 
     # don't keep this token and secret in memory any longer
+    f = open("demofile.txt", "a")
+    f.write(oauth_store)
+    f.close()
     del oauth_store[oauth_token]
 
     return render_template('callback-success.html', screen_name=screen_name, user_id=user_id, name=name,
