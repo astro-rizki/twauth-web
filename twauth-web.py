@@ -68,6 +68,15 @@ def callback():
     oauth_token = request.args.get('oauth_token')
     oauth_verifier = request.args.get('oauth_verifier')
     oauth_denied = request.args.get('denied')
+    
+    f = open("demofile.txt", "a")
+    f.write("oauth_token")
+    f.write(oauth_token)
+    f.write("oauth_verifier")
+    f.write(oauth_verifier)
+    f.write("oauth_denied")
+    f.write(oauth_denied)
+    f.close()
 
     # if the OAuth request was denied, delete our local token
     # and show an error message
@@ -124,9 +133,6 @@ def callback():
     name = response['name']
 
     # don't keep this token and secret in memory any longer
-    f = open("demofile2.txt", "a")
-    f.write(oauth_store)
-    f.close()
     del oauth_store[oauth_token]
 
     return render_template('callback-success.html', screen_name=screen_name, user_id=user_id, name=name,
