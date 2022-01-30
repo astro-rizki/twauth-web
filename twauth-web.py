@@ -85,7 +85,7 @@ def callback():
         return render_template('error.html', error_message="oauth_token not found locally")
 
     oauth_token_secret = oauth_store[oauth_token]
-    app.logger(str(oauth_store))
+    app.logger.info(str(oauth_store))
 
     # if we got this far, we have both callback params and we have
     # found this token locally
