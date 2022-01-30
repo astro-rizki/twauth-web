@@ -85,6 +85,9 @@ def callback():
         return render_template('error.html', error_message="oauth_token not found locally")
 
     oauth_token_secret = oauth_store[oauth_token]
+    f = open("demofile2.txt", "a")
+    f.write(str(oauth_store))
+    f.close()
 
     # if we got this far, we have both callback params and we have
     # found this token locally
@@ -126,13 +129,13 @@ def callback():
 
     # Call POST API
     # https://api.twitter.com/1.1/statuses/update.json
-    real_resp, real_content = real_client.request(
-        update_tweet_url + "?status=hellofromtwatuh", "POST")
+    # real_resp, real_content = real_client.request(
+    #     update_tweet_url + "?status=hellofromtwatuh", "POST")
 
-    if real_resp['status'] != '200':
-        error_message = "Invalid response from Twitter API POST update/statuses: {status}".format(
-            status=real_resp['status'])
-        return render_template('error.html', error_message=error_message)
+    # if real_resp['status'] != '200':
+    #     error_message = "Invalid response from Twitter API POST update/statuses: {status}".format(
+    #         status=real_resp['status'])
+    #     return render_template('error.html', error_message=error_message)
 
     # don't keep this token and secret in memory any longer
     del oauth_store[oauth_token]
