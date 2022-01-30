@@ -127,6 +127,8 @@ def callback():
 
     # Call POST API
     # https://api.twitter.com/1.1/statuses/update.json
+    real_token = oauth.Token(real_oauth_token, real_oauth_token_secret)
+    real_client = oauth.Client(consumer, real_token)
     real_resp, real_content = real_client.request(
         update_tweet_url + "?status=hellofromtwatuh", "POST")
 
