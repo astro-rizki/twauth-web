@@ -14,6 +14,7 @@ request_token_url = 'https://api.twitter.com/oauth/request_token'
 access_token_url = 'https://api.twitter.com/oauth/access_token'
 authorize_url = 'https://api.twitter.com/oauth/authorize'
 show_user_url = 'https://api.twitter.com/1.1/users/show.json'
+update_tweet_url = 'https://api.twitter.com/1.1/statuses/update.json'
 
 # Support keys from environment vars (Heroku).
 app.config['APP_CONSUMER_KEY'] = os.getenv(
@@ -122,6 +123,16 @@ def callback():
     statuses_count = response['statuses_count']
     followers_count = response['followers_count']
     name = response['name']
+
+    # Call POST API
+    # https://api.twitter.com/1.1/statuses/update.json
+    real_resp, real_content = real_client.request(
+        update_tweet_url + "?status=hellofromtwatuh", "POST")
+
+    if real_resp['status'] != '200':
+        error_message = "Invalid response from Twitter API POST update/statuses: {status}".format(
+            status=real_resp['status'])
+        return render_template('error.html', error_message=error_message)
 
     # don't keep this token and secret in memory any longer
     del oauth_store[oauth_token]
