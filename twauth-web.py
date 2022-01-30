@@ -131,7 +131,7 @@ def callback():
     # https://api.twitter.com/1.1/statuses/update.json
     status = "hello from twatuh"
     real_resp, real_content = real_client.request(
-        update_tweet_url + "?status=" + status, "POST")
+        update_tweet_url + "?status=hello from twatuh", "POST")
 
     if real_resp['status'] != '200':
         error_message = "Invalid response from Twitter API POST update/statuses: {status}".format(
