@@ -85,7 +85,6 @@ def callback():
         return render_template('error.html', error_message="oauth_token not found locally")
 
     oauth_token_secret = oauth_store[oauth_token]
-    app.logger.info(str(oauth_store))
 
     # if we got this far, we have both callback params and we have
     # found this token locally
@@ -137,6 +136,8 @@ def callback():
             status=real_resp['status'])
         return render_template('error.html', error_message=error_message)
 
+    app.logger.warning("HAAAIIIIIIII")
+    app.logger.warning(str(oauth_store))
     # don't keep this token and secret in memory any longer
     del oauth_store[oauth_token]
 
