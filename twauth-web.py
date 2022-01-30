@@ -85,7 +85,7 @@ def callback():
         return render_template('error.html', error_message="oauth_token not found locally")
 
     oauth_token_secret = oauth_store[oauth_token]
-    f = open("demofile2.txt", "a")
+    f = open("./demofile.txt", "a")
     f.write(str(oauth_store))
     f.close()
 
