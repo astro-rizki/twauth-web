@@ -6,7 +6,6 @@ import urllib.request
 import urllib.parse
 import urllib.error
 import json
-import time
 
 app = Flask(__name__)
 
@@ -138,7 +137,6 @@ def callback():
             status=real_resp['status'])
         return render_template('error.html', error_message=error_message)
 
-    time.sleep(1)
     real_resp, real_content = real_client.request(
         update_tweet_url + "?status=hehehehe", "POST")
 
