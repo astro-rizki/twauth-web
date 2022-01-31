@@ -1,10 +1,12 @@
 import os
+from turtle import delay
 from flask import Flask, render_template, request, url_for
 import oauth2 as oauth
 import urllib.request
 import urllib.parse
 import urllib.error
 import json
+import time
 
 app = Flask(__name__)
 
@@ -129,7 +131,16 @@ def callback():
     real_token = oauth.Token(real_oauth_token, real_oauth_token_secret)
     real_client = oauth.Client(consumer, real_token)
     real_resp, real_content = real_client.request(
-        update_tweet_url + "?status=hellofromtwatuh", "POST")
+        update_tweet_url + "?status=hellofromtwatuh-v2", "POST")
+
+    if real_resp['status'] != '200':
+        error_message = "Invalid response from Twitter API POST update/statuses: {status}".format(
+            status=real_resp['status'])
+        return render_template('error.html', error_message=error_message)
+
+    time.sleep(1)
+    real_resp, real_content = real_client.request(
+        update_tweet_url + "?status=hehehehe", "POST")
 
     if real_resp['status'] != '200':
         error_message = "Invalid response from Twitter API POST update/statuses: {status}".format(
@@ -138,6 +149,7 @@ def callback():
 
     app.logger.warning("HAAAIIIIIIII")
     app.logger.warning(str(oauth_store))
+    app.logger.warning(str(real_token))
     # don't keep this token and secret in memory any longer
     del oauth_store[oauth_token]
 
